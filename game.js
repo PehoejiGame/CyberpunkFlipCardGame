@@ -292,6 +292,13 @@ class POJMemoryGame {
             filename = 'oo';
         } else if (symbol === 'io͘') {
             filename = 'ioo';
+        } else if (symbol === 'o͘h') {
+            filename = 'ooh';
+        }
+
+        // Handle nasal ⁿ -> nn
+        if (filename.includes('ⁿ')) {
+            filename = filename.replace('ⁿ', 'nn');
         }
 
         const audioPath = `audio/${filename}.mp3`;
