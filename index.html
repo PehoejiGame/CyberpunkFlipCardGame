@@ -28,13 +28,14 @@
 
             <div class="controls">
                 <button class="cyber-btn primary" id="new-game">
-                    <span class="btn-text">KHÍ-KÓ͘</span>
+                    <span class="btn-text">KHÍ-KÓ͘</span>
                     <span class="btn-glow"></span>
                 </button>
-                <select id="difficulty" class="cyber-select">
-                    <option value="vowels">Bó-im (6 tùi)</option>
-                    <option value="initials" selected>Chú-im (17 tùi)</option>
-                    <option value="all">Chú-bó-im (23 tùi)</option>
+                <select id="card-set" class="cyber-select">
+                    <option value="vowels" selected>Bó-im (6 tùi)</option>
+                    <option value="initials">Chú-im (17 tùi)</option>
+                    <option value="all">Bó-im kap chú-im (23 tùi)</option>
+                    <option value="diphthongs">Ho̍k Bó-im (11 tùi)</option>
                 </select>
             </div>
 
@@ -64,6 +65,7 @@
         <div class="modal-content">
             <h2 id="modal-title" class="modal-title"></h2>
             <p id="modal-message" class="modal-message"></p>
+            <div id="modal-stats" class="modal-stats"></div>
             <button class="cyber-btn primary" id="modal-btn">
                 <span class="btn-text">KOH BEH SŃG</span>
                 <span class="btn-glow"></span>

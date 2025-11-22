@@ -11,6 +11,7 @@ class POJMemoryGame {
         ];
 
         this.pojVowels = ['a', 'i', 'u', 'e', 'o', 'o͘'];
+        this.pojDiphthongs = ['ai', 'au', 'ia', 'iu', 'io', 'io͘', 'iau', 'ui', 'oa', 'oe', 'oai'];
 
         // Game state
         this.cards = [];
@@ -21,13 +22,13 @@ class POJMemoryGame {
         this.timerInterval = null;
         this.startTime = null;
         this.isProcessing = false; // Prevent clicking during card comparison
-        this.difficulty = 'medium';
+        this.cardSet = 'vowels';
 
         this.initGame();
     }
 
     async initGame() {
-        this.getDifficulty();
+        this.getCardSet();
         this.createCardSet();
         this.shuffleCards();
         this.renderBoard();
@@ -35,17 +36,23 @@ class POJMemoryGame {
         this.attachEventListeners();
     }
 
-    getDifficulty() {
-        const difficultySelect = document.getElementById('difficulty');
-        this.difficulty = difficultySelect?.value || 'initials';
+    getCardSet() {
+        const cardSetSelect = document.getElementById('card-set');
+        this.cardSet = cardSetSelect?.value || 'vowels';
 
-        // Set symbols and grid based on difficulty
-        switch (this.difficulty) {
+        // Set symbols and grid based on card set
+        switch (this.cardSet) {
             case 'vowels':
                 this.symbolSet = this.pojVowels; // 6 vowels
                 this.totalPairs = 6;
                 this.gridCols = 4;
                 this.gridRows = 3; // 4x3 = 12 cards
+                break;
+            case 'diphthongs':
+                this.symbolSet = this.pojDiphthongs; // 11 diphthongs
+                this.totalPairs = 11;
+                this.gridCols = 6;
+                this.gridRows = 4; // 6x4 = 24 cards (11 pairs + 2 extra slots)
                 break;
             case 'all':
                 this.symbolSet = [...this.pojInitials, ...this.pojVowels]; // 23 symbols
@@ -71,7 +78,12 @@ class POJMemoryGame {
 
         // Create pairs
         selectedSymbols.forEach((symbol, index) => {
-            const type = this.pojInitials.includes(symbol) ? 'initial' : 'vowel';
+            let type = 'initial';
+            if (this.pojVowels.includes(symbol)) {
+                type = 'vowel';
+            } else if (this.pojDiphthongs.includes(symbol)) {
+                type = 'diphthong';
+            }
 
             // First card of pair
             this.cards.push({
@@ -184,8 +196,9 @@ class POJMemoryGame {
             this.resetGame();
         });
 
-        document.getElementById('difficulty')?.addEventListener('change', () => {
-            this.resetGame();
+        // Card Set change
+        document.getElementById('card-set')?.addEventListener('change', () => {
+            this.initGame();
         });
     }
 
@@ -227,6 +240,8 @@ class POJMemoryGame {
         let filename = symbol;
         if (symbol === 'o͘') {
             filename = 'oo';
+        } else if (symbol === 'io͘') {
+            filename = 'ioo';
         }
 
         const audioPath = `audio/${filename}.mp3`;
@@ -258,9 +273,24 @@ class POJMemoryGame {
             // Check win condition
             if (this.matchedPairs === this.totalPairs) {
                 this.stopTimer();
+                this.stopTimer();
                 const time = this.getElapsedTime();
+                const accuracy = Math.round((this.totalPairs / this.flips) * 100);
+                const cardSetNames = {
+                    'vowels': 'Bó-im',
+                    'initials': 'Chú-im',
+                    'diphthongs': 'Ho̍k Bó-im',
+                    'all': 'Chú-bó-im'
+                };
+                const cardSetName = cardSetNames[this.cardSet] || this.cardSet;
+
                 setTimeout(() => {
-                    this.showModal('VICTORY!', `You won in ${time}!`);
+                    this.showModal('VICTORY!', 'Lí iâⁿ ah!', {
+                        time: time,
+                        flips: this.flips,
+                        cardSet: cardSetName,
+                        accuracy: `${accuracy}%`
+                    });
                 }, 500);
             }
         } else {
@@ -319,9 +349,32 @@ class POJMemoryGame {
         document.getElementById('matched').textContent = `${this.matchedPairs}/${this.totalPairs}`;
     }
 
-    showModal(title, message) {
+    showModal(title, message, stats = null) {
         document.getElementById('modal-title').textContent = title;
         document.getElementById('modal-message').textContent = message;
+
+        const statsContainer = document.getElementById('modal-stats');
+        statsContainer.innerHTML = '';
+
+        if (stats) {
+            const statLabels = {
+                time: 'Sî-kan',
+                flips: 'Hian',
+                cardSet: 'Pâi-cho͘',
+                accuracy: 'Chún-khak'
+            };
+
+            Object.entries(stats).forEach(([key, value]) => {
+                const item = document.createElement('div');
+                item.className = 'modal-stat-item';
+                item.innerHTML = `
+                    <span class="modal-stat-label">${statLabels[key] || key}</span>
+                    <span class="modal-stat-value">${value}</span>
+                `;
+                statsContainer.appendChild(item);
+            });
+        }
+
         document.getElementById('modal').classList.add('active');
     }
 
@@ -337,7 +390,7 @@ class POJMemoryGame {
         this.isProcessing = false;
         this.hideModal();
 
-        this.getDifficulty();
+        this.getCardSet();
         this.createCardSet();
         this.shuffleCards();
         this.renderBoard();
