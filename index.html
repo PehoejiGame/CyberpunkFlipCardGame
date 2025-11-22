@@ -6,9 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PE̍H-ŌE-JĪ Siang-siang-tùi-tùi Kì-ek Giàn-mh</title>
     <meta name="description" content="A memory card game featuring Pe̍h-ōe-jī phonetic symbols.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Huninn&display=swap" rel="stylesheet">
+    <meta name="description" content="A memory card game featuring Pe̍h-ōe-jī phonetic symbols.">
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -20,39 +18,49 @@
         <header class="main-header">
             <div class="title-section">
                 <h1 class="neon-title">
-                    <span class="glitch" data-text="Pe̍h-ōe-jī">PE̍H-ŌE-JĪ</span>
+                    <span class="glitch" data-text="Pe̍h-ōe-jī" data-i18n="title">PE̍H-ŌE-JĪ</span>
                     <span class="subtitle">
-                        <span>Siang-siang-tùi-tùi</span>
-                        <span>Kì-ek Giàn-mh</span>
+                        <span data-i18n="subtitle1">Siang-siang-tùi-tùi</span>
+                        <span data-i18n="subtitle2">Kì-ek Giàn-mh</span>
                     </span>
                 </h1>
-            </div>
-
-            <div class="controls">
-                <button class="cyber-btn primary" id="new-game">
-                    <span class="btn-text">KHÍ-KÓ͘</span>
-                    <span class="btn-glow"></span>
-                </button>
-                <select id="card-set" class="cyber-select">
-                    <option value="vowels" selected>Bó-im (6 tùi)</option>
-                    <option value="initials">Chú-im (17 tùi)</option>
-                    <option value="diphthongs">Ho̍k Bó-im (11 tùi)</option>
+                <select id="language-select" class="cyber-select" style="width: auto; margin-left: auto;">
+                    <option value="poj">POJ</option>
+                    <option value="en">English</option>
                 </select>
             </div>
 
-            <div class="stats-panel">
-                <div class="stat-item">
-                    <span class="stat-label">Sî-kan</span>
-                    <span class="stat-value" id="timer">00:00</span>
+            <div class="header-bottom-row">
+                <div class="controls">
+                    <button class="cyber-btn primary" id="new-game">
+                        <span class="btn-text" data-i18n="newGame">KHÍ-KÓ͘</span>
+                        <span class="btn-glow"></span>
+                    </button>
+                    <select id="card-set" class="cyber-select">
+                        <option value="initials" data-i18n="cardSets.initials">Chú-im jī-thâu (17 tùi)</option>
+                        <option value="vowels" selected data-i18n="cardSets.vowels">Bó-im jī-bóe (6 tùi)</option>
+                        <option value="diphthongs" data-i18n="cardSets.diphthongs">Ho̍k Bó-im jī-bóe (11 tùi)</option>
+                        <option value="nasals" data-i18n="cardSets.nasals">Phiⁿ-im (12 tùi)</option>
+                        <option value="nasalFinals" data-i18n="cardSets.nasalFinals">Phiⁿ-im jī-bóe (14 tùi)</option>
+                        <option value="stopFinals" data-i18n="cardSets.stopFinals">[Jī-bóe] Sok-im jī-bóe (21 tùi)
+                        </option>
+                    </select>
                 </div>
 
-                <div class="stat-item">
-                    <span class="stat-label">Hian</span>
-                    <span class="stat-value" id="flips">0</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-label">Tio̍h</span>
-                    <span class="stat-value" id="matched">0/17</span>
+                <div class="stats-panel">
+                    <div class="stat-item">
+                        <span class="stat-label" data-i18n="time">Sî-kan</span>
+                        <span class="stat-value" id="timer">00:00</span>
+                    </div>
+
+                    <div class="stat-item">
+                        <span class="stat-label" data-i18n="flips">Hian</span>
+                        <span class="stat-value" id="flips">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label" data-i18n="matched">Tio̍h</span>
+                        <span class="stat-value" id="matched">0/17</span>
+                    </div>
                 </div>
             </div>
         </header>
@@ -68,12 +76,13 @@
             <p id="modal-message" class="modal-message"></p>
             <div id="modal-stats" class="modal-stats"></div>
             <button class="cyber-btn primary" id="modal-btn">
-                <span class="btn-text">KOH LÂI</span>
+                <span class="btn-text" data-i18n="playAgain">KOH LÂI</span>
                 <span class="btn-glow"></span>
             </button>
         </div>
     </div>
 
+    <script src="translations.js"></script>
     <script src="game.js"></script>
 </body>
 

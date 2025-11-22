@@ -12,6 +12,9 @@ class POJMemoryGame {
 
         this.pojVowels = ['a', 'i', 'u', 'e', 'o', 'o͘'];
         this.pojDiphthongs = ['ai', 'au', 'ia', 'iu', 'io', 'io͘', 'iau', 'ui', 'oa', 'oe', 'oai'];
+        this.pojNasals = ['aⁿ', 'iⁿ', 'oⁿ', 'eⁿ', 'aiⁿ', 'auⁿ', 'iaⁿ', 'iuⁿ', 'iauⁿ', 'uiⁿ', 'oaⁿ', 'oaiⁿ'];
+        this.pojNasalFinals = ['am', 'an', 'ang', 'im', 'iam', 'iang', 'iong', 'un', 'om', 'ong', 'oan', 'oang', 'ian', 'eng'];
+        this.pojStopFinals = ['ap', 'at', 'ak', 'ah', 'ip', 'it', 'ih', 'ut', 'uh', 'op', 'ok', 'o͘h', 'eh', 'oh', 'iap', 'iak', 'iok', 'oat', 'oak', 'iat', 'ek'];
 
         // Game state
         this.cards = [];
@@ -23,17 +26,39 @@ class POJMemoryGame {
         this.startTime = null;
         this.isProcessing = false; // Prevent clicking during card comparison
         this.cardSet = 'vowels';
+        this.currentLang = 'poj';
 
         this.initGame();
     }
 
     async initGame() {
+        this.translateUI();
         this.getCardSet();
         this.createCardSet();
         this.shuffleCards();
         this.renderBoard();
         this.startTimer();
         this.attachEventListeners();
+    }
+
+    translateUI() {
+        const t = TRANSLATIONS[this.currentLang];
+
+        document.querySelectorAll('[data-i18n]').forEach(element => {
+            const key = element.getAttribute('data-i18n');
+            const keys = key.split('.');
+            let value = t;
+            for (const k of keys) {
+                value = value[k];
+            }
+            if (value) {
+                if (element.tagName === 'OPTION') {
+                    element.textContent = value;
+                } else {
+                    element.textContent = value;
+                }
+            }
+        });
     }
 
     getCardSet() {
@@ -53,6 +78,24 @@ class POJMemoryGame {
                 this.totalPairs = 11;
                 this.gridCols = 6;
                 this.gridRows = 4; // 6x4 = 24 cards (11 pairs + 2 extra slots)
+                break;
+            case 'nasals':
+                this.symbolSet = this.pojNasals; // 12 nasals
+                this.totalPairs = 12;
+                this.gridCols = 6;
+                this.gridRows = 4; // 6x4 = 24 cards
+                break;
+            case 'nasalFinals':
+                this.symbolSet = this.pojNasalFinals; // 14 nasal finals
+                this.totalPairs = 14;
+                this.gridCols = 7;
+                this.gridRows = 4; // 7x4 = 28 cards
+                break;
+            case 'stopFinals':
+                this.symbolSet = this.pojStopFinals; // 21 stop finals
+                this.totalPairs = 21;
+                this.gridCols = 7;
+                this.gridRows = 6; // 7x6 = 42 cards
                 break;
             case 'initials':
             default:
@@ -77,7 +120,14 @@ class POJMemoryGame {
                 type = 'vowel';
             } else if (this.pojDiphthongs.includes(symbol)) {
                 type = 'diphthong';
+            } else if (this.pojNasals.includes(symbol)) {
+                type = 'nasal';
+            } else if (this.pojNasalFinals.includes(symbol)) {
+                type = 'nasalFinal';
+            } else if (this.pojStopFinals.includes(symbol)) {
+                type = 'stopFinal';
             }
+
 
             // First card of pair
             this.cards.push({
@@ -192,7 +242,13 @@ class POJMemoryGame {
 
         // Card Set change
         document.getElementById('card-set')?.addEventListener('change', () => {
-            this.initGame();
+            this.resetGame();
+        });
+
+        // Language change
+        document.getElementById('language-select')?.addEventListener('change', (e) => {
+            this.currentLang = e.target.value;
+            this.translateUI();
         });
     }
 
@@ -270,16 +326,11 @@ class POJMemoryGame {
                 this.stopTimer();
                 const time = this.getElapsedTime();
                 const accuracy = Math.round((this.totalPairs / this.flips) * 100);
-                const cardSetNames = {
-                    'vowels': 'Bó-im',
-                    'initials': 'Chú-im',
-                    'diphthongs': 'Ho̍k Bó-im',
-                    'all': 'Chú-bó-im'
-                };
-                const cardSetName = cardSetNames[this.cardSet] || this.cardSet;
+                const t = TRANSLATIONS[this.currentLang];
+                const cardSetName = t.cardSetNames[this.cardSet] || this.cardSet;
 
                 setTimeout(() => {
-                    this.showModal('Oân-sêng!', 'Ū kàu chán! Lí iâⁿ--ah!', {
+                    this.showModal(t.modalTitle, t.modalMessage, {
                         time: time,
                         flips: this.flips,
                         cardSet: cardSetName,
@@ -355,11 +406,12 @@ class POJMemoryGame {
         statsContainer.innerHTML = '';
 
         if (stats) {
+            const t = TRANSLATIONS[this.currentLang];
             const statLabels = {
-                time: 'Sî-kan',
-                flips: 'Hian',
-                cardSet: 'Pâi',
-                accuracy: 'Chún'
+                time: t.modalTime,
+                flips: t.modalFlips,
+                cardSet: t.modalCardSet,
+                accuracy: t.modalAccuracy
             };
 
             Object.entries(stats).forEach(([key, value]) => {
