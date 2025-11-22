@@ -290,10 +290,11 @@ body {
 .game-container {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     flex: 1;
     min-height: 0;
     padding: 1rem;
+    padding-top: 2rem;
     overflow: hidden;
     position: relative;
     width: 100%;
