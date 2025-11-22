@@ -307,12 +307,16 @@ class POJMemoryGame {
         const cardElement = document.querySelector(`[data-index="${index}"]`);
 
         if (cardElement) {
-            cardElement.className = 'card';
+            // Toggle classes instead of resetting to avoid re-triggering animations
             if (card.flipped) {
                 cardElement.classList.add('flipped');
+            } else {
+                cardElement.classList.remove('flipped');
             }
             if (card.matched) {
                 cardElement.classList.add('matched');
+            } else {
+                cardElement.classList.remove('matched');
             }
         }
     }
