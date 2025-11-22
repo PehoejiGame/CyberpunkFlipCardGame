@@ -6,28 +6,28 @@
 }
 
 :root {
-    /* Tron / The Grid Color Palette */
-    --cp-yellow: #FFB300;
-    /* Amber */
-    --cp-cyan: #66FFFF;
-    /* Light Neon Blue */
-    --cp-magenta: #FF1F1F;
-    /* Neon Red */
+    /* Cyberpunk 2077 Color Palette */
+    --cp-yellow: #FCE300;
+    /* Vibrant Cyberpunk Yellow */
+    --cp-cyan: #00F0FF;
+    /* Electric Cyan */
+    --cp-magenta: #FF006E;
+    /* Hot Pink/Magenta */
     --cp-red: #FF003C;
-    /* Danger/alert red */
-    --cp-blue: #1F8FFF;
-    /* Dodger Blue */
-    --cp-purple: #B34DFF;
-    /* Light Purple */
-    --cp-dark-bg: #020B14;
-    /* Very Dark Blue */
-    --cp-darker-bg: #000000;
-    /* Black */
-    --cp-panel-bg: rgba(2, 11, 20, 0.9);
-    --cp-tile-bg: rgba(5, 20, 35, 0.95);
-    --cp-tile-border: rgba(102, 255, 255, 0.4);
-    --cp-green: #00FF9F;
-    /* Success/Match green */
+    /* Danger Red */
+    --cp-blue: #00A8FF;
+    /* Bright Blue */
+    --cp-purple: #B967FF;
+    /* Neon Purple */
+    --cp-dark-bg: #0A0E27;
+    /* Deep Dark Blue */
+    --cp-darker-bg: #050A1F;
+    /* Almost Black with Blue Tint */
+    --cp-panel-bg: rgba(10, 14, 39, 0.95);
+    --cp-tile-bg: rgba(15, 20, 50, 0.95);
+    --cp-tile-border: rgba(252, 227, 0, 0.5);
+    --cp-green: #00FF41;
+    /* Matrix Green */
 
     /* Legacy aliases for compatibility */
     --neon-cyan: var(--cp-cyan);
@@ -621,11 +621,11 @@ body {
 .card-back {
     background: linear-gradient(135deg,
             var(--cp-dark-bg) 0%,
-            var(--cp-purple) 100%);
+            rgba(185, 103, 255, 0.3) 100%);
     border: 3px solid var(--cp-purple);
     box-shadow:
-        0 0 20px rgba(177, 13, 201, 0.4),
-        inset 0 0 30px rgba(177, 13, 201, 0.3);
+        0 0 20px rgba(185, 103, 255, 0.6),
+        inset 0 0 30px rgba(185, 103, 255, 0.2);
 }
 
 .card-back::before {
@@ -636,30 +636,48 @@ body {
 }
 
 .card-front {
-    background: var(--panel-bg);
+    background: linear-gradient(135deg, rgba(10, 14, 39, 0.95) 0%, rgba(15, 20, 50, 0.9) 100%);
     border: 3px solid var(--cp-yellow);
     transform: rotateY(180deg);
-    box-shadow: 0 0 30px rgba(252, 227, 0, 0.5);
+    box-shadow: 0 0 30px rgba(252, 227, 0, 0.6);
     /* Dynamic font size calculated by JavaScript based on longest text */
     font-size: var(--card-font-size, clamp(1.2rem, calc(20vw / var(--grid-cols)), 3.5rem));
 }
 
 .card-front.initial {
-    color: var(--cp-cyan);
-    border-color: var(--cp-cyan);
-    box-shadow: 0 0 30px rgba(0, 240, 255, 0.5);
-}
-
-.card-front.vowel {
     color: var(--cp-yellow);
-    border-color: var(--cp-yellow);
+    border-color: rgba(252, 227, 0, 0.6);
     box-shadow: 0 0 30px rgba(252, 227, 0, 0.5);
 }
 
-.card-front.diphthong {
+.card-front.vowel {
     color: var(--cp-magenta);
-    border-color: var(--cp-magenta);
+    border-color: rgba(255, 0, 110, 0.6);
     box-shadow: 0 0 30px rgba(255, 0, 110, 0.5);
+}
+
+.card-front.diphthong {
+    color: var(--cp-cyan);
+    border-color: rgba(0, 240, 255, 0.6);
+    box-shadow: 0 0 30px rgba(0, 240, 255, 0.6);
+}
+
+.card-front.nasal {
+    color: var(--cp-yellow);
+    border-color: rgba(252, 227, 0, 0.6);
+    box-shadow: 0 0 30px rgba(252, 227, 0, 0.6);
+}
+
+.card-front.nasalFinal {
+    color: var(--cp-magenta);
+    border-color: rgba(255, 0, 110, 0.6);
+    box-shadow: 0 0 30px rgba(255, 0, 110, 0.6);
+}
+
+.card-front.stopFinal {
+    color: var(--cp-yellow);
+    border-color: rgba(252, 227, 0, 0.6);
+    box-shadow: 0 0 30px rgba(252, 227, 0, 0.6);
 }
 
 .card-front .symbol {
@@ -674,8 +692,7 @@ body {
     transform: rotateY(180deg);
     opacity: 1;
     /* Keep fully visible */
-    /* Keep fully visible */
-    box-shadow: 0 0 20px var(--cp-green);
+    box-shadow: 0 0 25px var(--cp-green), 0 0 50px rgba(0, 255, 65, 0.4);
     /* Add glow to indicate match */
 }
 
