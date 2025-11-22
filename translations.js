@@ -7,6 +7,7 @@ const TRANSLATIONS = {
 
         // Controls
         newGame: "NEW GAME",
+        sound: "Sound",
         cardSets: {
             initials: "[Initials] Consonants (17 pairs)",
             vowels: "[Finals] Vowels (6 pairs)",
@@ -50,6 +51,7 @@ const TRANSLATIONS = {
 
         // Controls
         newGame: "KHÍ-KÓ͘",
+        sound: "Im-hāu",
         cardSets: {
             initials: "[Jī-thâu] Chú-im (17 tùi)",
             vowels: "[Jī-bóe] Bó-im (6 tùi)",

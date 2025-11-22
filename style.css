@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'Huninn';
-    src: url('font/jf-openhuninn-2.1.ttf') format('truetype');
+    src: url('jf-openhuninn-2.1.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
@@ -295,6 +295,10 @@ body {
     min-height: 0;
     padding: 1rem;
     overflow: hidden;
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 /* Game Board */
@@ -1065,4 +1069,47 @@ body {
     .modal-message {
         font-size: 1.3rem;
     }
+}
+
+/* Audio Icon Button */
+#audio-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    margin: 0;
+    z-index: 10;
+}
+
+
+.cyber-icon-btn {
+    background: rgba(10, 10, 20, 0.8);
+    border: 1px solid var(--neon-blue);
+    color: var(--neon-blue);
+    padding: 0.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 5px var(--neon-blue);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+}
+
+.cyber-icon-btn:hover {
+    background: rgba(0, 243, 255, 0.2);
+    box-shadow: 0 0 15px var(--neon-blue);
+    transform: scale(1.05);
+}
+
+.cyber-icon-btn.muted {
+    border-color: var(--neon-pink);
+    color: var(--neon-pink);
+    box-shadow: 0 0 5px var(--neon-pink);
+}
+
+.cyber-icon-btn.muted:hover {
+    background: rgba(255, 0, 255, 0.2);
+    box-shadow: 0 0 15px var(--neon-pink);
 }
