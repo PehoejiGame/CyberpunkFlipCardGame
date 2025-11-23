@@ -102,8 +102,8 @@ class POJMemoryGame {
             default:
                 this.symbolSet = this.pojInitials; // 17 initials
                 this.totalPairs = 17;
-                this.gridCols = 6;
-                this.gridRows = 6; // 6x6 = 36 cards
+                this.gridCols = 5;
+                this.gridRows = 7; // 5x7 = 35 cards
                 break;
         }
     }

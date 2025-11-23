@@ -994,10 +994,10 @@ body {
     }
 
     .cyber-select {
-        font-size: 1.2rem;
+        font-size: 1.0rem;
     }
 
-    .cyber-btn {
-        font-size: 1.3rem;
+    .cyber-btn.primary {
+        font-size: 1.2rem;
     }
 }
