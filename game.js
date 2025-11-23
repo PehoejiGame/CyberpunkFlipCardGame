@@ -72,38 +72,38 @@ class POJMemoryGame {
                 this.symbolSet = this.pojVowels; // 6 vowels
                 this.totalPairs = 6;
                 this.gridCols = 4;
-                this.gridRows = 3; // 4x3 = 12 cards
+                this.gridRows = 3; // 4x3 = 12 cards (6 pairs + 0 extra slots)
                 break;
             case 'diphthongs':
                 this.symbolSet = this.pojDiphthongs; // 11 diphthongs
                 this.totalPairs = 11;
-                this.gridCols = 6;
-                this.gridRows = 4; // 6x4 = 24 cards (11 pairs + 2 extra slots)
+                this.gridCols = 5;
+                this.gridRows = 5; // 5x5 = 25 cards (11 pairs + 3 extra slots)
                 break;
             case 'nasals':
                 this.symbolSet = this.pojNasals; // 12 nasals
                 this.totalPairs = 12;
-                this.gridCols = 6;
-                this.gridRows = 4; // 6x4 = 24 cards (12 pairs + 2 extra slots)
+                this.gridCols = 5;
+                this.gridRows = 5; // 5x5 = 25 cards (12 pairs + 1 extra slots)
                 break;
             case 'nasalFinals':
                 this.symbolSet = this.pojNasalFinals; // 14 nasal finals
                 this.totalPairs = 14;
-                this.gridCols = 7;
-                this.gridRows = 4; // 7x4 = 28 cards
+                this.gridCols = 5;
+                this.gridRows = 6; // 5x6 = 30 cards (14 pairs + 2 extra slots)
                 break;
             case 'stopFinals':
                 this.symbolSet = this.pojStopFinals; // 21 stop finals
                 this.totalPairs = 21;
-                this.gridCols = 9;
-                this.gridRows = 5; // 9x5 = 45 cards (21 pairs + 2 extra slots)
+                this.gridCols = 7;
+                this.gridRows = 6; // 7x6 = 42 cards (21 pairs + 0 extra slots)
                 break;
             case 'initials':
             default:
                 this.symbolSet = this.pojInitials; // 17 initials
                 this.totalPairs = 17;
-                this.gridCols = 9;
-                this.gridRows = 4; // 9x4 = 36 cards (17 pairs + 2 extra slots)
+                this.gridCols = 6;
+                this.gridRows = 6; // 6x6 = 36 cards (17 pairs + 2 extra slots)
                 break;
         }
     }
