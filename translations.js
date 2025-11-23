@@ -14,7 +14,8 @@ const TRANSLATIONS = {
             diphthongs: "[Finals] Diphthongs (11 pairs)",
             nasals: "[Finals] Nasal Vowels (12 pairs)",
             nasalFinals: "[Finals] Nasal Consonants (14 pairs)",
-            stopFinals: "[Finals] Stop Finals (21 pairs)"
+            stopFinalsH: "[Finals] Stop Finals -h (6 pairs)",
+            stopFinalsPTK: "[Finals] Stop Finals -ptk (15 pairs)"
         },
 
         // Stats Panel
@@ -40,7 +41,8 @@ const TRANSLATIONS = {
             diphthongs: "[Finals] Diphthongs",
             nasals: "[Finals] Nasal Vowels",
             nasalFinals: "[Finals] Nasal Consonants",
-            stopFinals: "[Finals] Stop Finals"
+            stopFinalsH: "[Finals] Stop Finals -h",
+            stopFinalsPTK: "[Finals] Stop Finals -ptk"
         }
     },
     poj: {
@@ -58,7 +60,8 @@ const TRANSLATIONS = {
             diphthongs: "[Jī-bóe] Ho̍k Bó-im (11 tùi)",
             nasals: "[Jī-bóe] Phīⁿ-im hòa bó-im (12 tùi)",
             nasalFinals: "[Jī-bóe] Phīⁿ chú-im (14 tùi)",
-            stopFinals: "[Jī-bóe] Sok-im jī-bóe (21 tùi)"
+            stopFinalsH: "[Jī-bóe] Sok-im jī-bóe -h (6 tùi)",
+            stopFinalsPTK: "[Jī-bóe] Sok-im jī-bóe -ptk (15 tùi)"
         },
 
         // Stats Panel
@@ -84,7 +87,8 @@ const TRANSLATIONS = {
             diphthongs: "[Jī-bóe] Ho̍k Bó-im",
             nasals: "[Jī-bóe] Phīⁿ-im hòa bó-im",
             nasalFinals: "[Jī-bóe] Phīⁿ chú-im",
-            stopFinals: "[Jī-bóe] Sok-im jī-bóe"
+            stopFinalsH: "[Jī-bóe] Sok-im jī-bóe -h",
+            stopFinalsPTK: "[Jī-bóe] Sok-im jī-bóe -ptk"
         }
     }
 };

@@ -230,10 +230,10 @@ body {
     font-size: 1.2rem;
     font-weight: 700;
     letter-spacing: 0.05rem;
-    color: var(--neon-magenta);
+    color: var(--cp-red);
     text-shadow:
-        0 0 5px var(--neon-magenta),
-        0 0 10px var(--neon-magenta);
+        0 0 5px var(--cp-red),
+        0 0 10px var(--cp-red);
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -328,23 +328,14 @@ body {
     gap: 0.5rem;
     margin: 0 auto;
     padding: 0.5rem;
+    padding-bottom: 3rem;
 
     /* Use CSS variables set by JS */
     grid-template-columns: repeat(var(--grid-cols, 4), 1fr);
     grid-template-rows: repeat(var(--grid-rows, 4), 1fr);
 
-    /* Calculate size to fit screen while maintaining card aspect ratio */
-    --card-gap: 0.5rem;
-    --total-gap-x: calc(var(--card-gap) * (var(--grid-cols) - 1) + 2rem);
-    --total-gap-y: calc(var(--card-gap) * (var(--grid-rows) - 1) + 2rem);
-
-    /* Max width based on viewport width */
-    --max-width-by-vw: calc(100vw - 4rem);
-    /* Max width based on viewport height (accounting for 3:4 card ratio) */
-    --max-width-by-vh: calc((60vh - var(--total-gap-y)) * 3 / 4 * var(--grid-cols) / var(--grid-rows) + var(--total-gap-x));
-
-    width: min(var(--max-width-by-vw), var(--max-width-by-vh));
-    height: auto;
+    width: 100%;
+    height: 100%;
 }
 
 /* Remove old specific grid selectors */
@@ -353,7 +344,7 @@ body {
 .card {
     position: relative;
     width: 100%;
-    aspect-ratio: 3 / 4;
+    height: 100%;
     cursor: pointer;
     perspective: 1000px;
     z-index: 1;

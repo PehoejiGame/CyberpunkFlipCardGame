@@ -14,7 +14,9 @@ class POJMemoryGame {
         this.pojDiphthongs = ['ai', 'au', 'ia', 'iu', 'io', 'io͘', 'iau', 'ui', 'oa', 'oe', 'oai'];
         this.pojNasals = ['aⁿ', 'iⁿ', 'oⁿ', 'eⁿ', 'aiⁿ', 'auⁿ', 'iaⁿ', 'iuⁿ', 'iauⁿ', 'uiⁿ', 'oaⁿ', 'oaiⁿ'];
         this.pojNasalFinals = ['am', 'an', 'ang', 'im', 'iam', 'iang', 'iong', 'un', 'om', 'ong', 'oan', 'oang', 'ian', 'eng'];
-        this.pojStopFinals = ['ap', 'at', 'ak', 'ah', 'ip', 'it', 'ih', 'ut', 'uh', 'op', 'ok', 'o͘h', 'eh', 'oh', 'iap', 'iak', 'iok', 'oat', 'oak', 'iat', 'ek'];
+        // Split stop finals into -h and -ptk
+        this.pojStopFinalsH = ['ah', 'ih', 'uh', 'o͘h', 'eh', 'oh'];
+        this.pojStopFinalsPTK = ['ap', 'at', 'ak', 'ip', 'it', 'ut', 'op', 'ok', 'iap', 'iak', 'iok', 'oat', 'oak', 'iat', 'ek'];
 
         // Game state
         this.cards = [];
@@ -71,39 +73,45 @@ class POJMemoryGame {
             case 'vowels':
                 this.symbolSet = this.pojVowels; // 6 vowels
                 this.totalPairs = 6;
-                this.gridCols = 4;
-                this.gridRows = 3; // 4x3 = 12 cards (6 pairs + 0 extra slots)
+                this.gridCols = 3;
+                this.gridRows = 4; // 3x4 = 12 cards
                 break;
             case 'diphthongs':
                 this.symbolSet = this.pojDiphthongs; // 11 diphthongs
                 this.totalPairs = 11;
-                this.gridCols = 5;
-                this.gridRows = 5; // 5x5 = 25 cards (11 pairs + 3 extra slots)
+                this.gridCols = 4;
+                this.gridRows = 6; // 4x6 = 24 cards
                 break;
             case 'nasals':
                 this.symbolSet = this.pojNasals; // 12 nasals
                 this.totalPairs = 12;
-                this.gridCols = 5;
-                this.gridRows = 5; // 5x5 = 25 cards (12 pairs + 1 extra slots)
+                this.gridCols = 4;
+                this.gridRows = 6; // 4x6 = 24 cards
                 break;
             case 'nasalFinals':
                 this.symbolSet = this.pojNasalFinals; // 14 nasal finals
                 this.totalPairs = 14;
-                this.gridCols = 5;
-                this.gridRows = 6; // 5x6 = 30 cards (14 pairs + 2 extra slots)
+                this.gridCols = 4;
+                this.gridRows = 7; // 4x7 = 28 cards
                 break;
-            case 'stopFinals':
-                this.symbolSet = this.pojStopFinals; // 21 stop finals
-                this.totalPairs = 21;
-                this.gridCols = 7;
-                this.gridRows = 6; // 7x6 = 42 cards (21 pairs + 0 extra slots)
+            case 'stopFinalsH':
+                this.symbolSet = this.pojStopFinalsH; // 6 stop finals (-h)
+                this.totalPairs = 6;
+                this.gridCols = 3;
+                this.gridRows = 4; // 3x4 = 12 cards
+                break;
+            case 'stopFinalsPTK':
+                this.symbolSet = this.pojStopFinalsPTK; // 15 stop finals (-ptk)
+                this.totalPairs = 15;
+                this.gridCols = 5;
+                this.gridRows = 6; // 5x6 = 30 cards
                 break;
             case 'initials':
             default:
                 this.symbolSet = this.pojInitials; // 17 initials
                 this.totalPairs = 17;
-                this.gridCols = 6;
-                this.gridRows = 6; // 6x6 = 36 cards (17 pairs + 2 extra slots)
+                this.gridCols = 4;
+                this.gridRows = 9; // 4x9 = 36 cards
                 break;
         }
     }
@@ -125,7 +133,7 @@ class POJMemoryGame {
                 type = 'nasal';
             } else if (this.pojNasalFinals.includes(symbol)) {
                 type = 'nasalFinal';
-            } else if (this.pojStopFinals.includes(symbol)) {
+            } else if (this.pojStopFinalsH.includes(symbol) || this.pojStopFinalsPTK.includes(symbol)) {
                 type = 'stopFinal';
             }
 
@@ -166,22 +174,18 @@ class POJMemoryGame {
         board.style.setProperty('--grid-cols', this.gridCols);
         board.style.setProperty('--grid-rows', this.gridRows);
 
-        // Calculate aspect ratio for the board to maintain card proportions
-        // Assuming card ratio is 3:4 (0.75)
-        // Board ratio = (cols * 3) / (rows * 4)
-        const boardRatio = (this.gridCols * 3) / (this.gridRows * 4);
-        board.style.setProperty('--board-ratio', boardRatio);
-
-        // Remove inline styles that might interfere
-        // board.style = ''; // REMOVED: This was clearing the CSS variables we just set
-
         this.cards.forEach((card, index) => {
             const cardElement = this.createCardElement(card, index);
             board.appendChild(cardElement);
         });
 
         this.updateStats();
-        this.adjustCardFontSize();
+
+        // Initial adjustment
+        // Use setTimeout to ensure DOM is fully rendered and dimensions are available
+        setTimeout(() => {
+            this.adjustCardFontSize();
+        }, 100);
     }
 
     adjustCardFontSize() {
@@ -548,5 +552,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // Attach modal button
     document.getElementById('modal-btn')?.addEventListener('click', () => {
         game.resetGame();
+    });
+
+    // Handle window resize
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            game.adjustCardFontSize();
+        }, 200);
     });
 });
