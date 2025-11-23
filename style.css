@@ -853,14 +853,14 @@ body {
 
 .modal-content {
     background: var(--panel-bg);
-    border: 3px solid var(--cp-magenta);
+    border: 3px solid var(--cp-yellow);
     border-radius: 16px;
     padding: 3rem;
     text-align: center;
     max-width: 500px;
     box-shadow:
-        0 0 60px rgba(255, 0, 110, 0.6),
-        inset 0 0 60px rgba(255, 0, 110, 0.1);
+        0 0 60px rgba(252, 227, 0, 0.6),
+        inset 0 0 60px rgba(252, 227, 0, 0.1);
     animation: modalSlide 0.5s ease;
     display: flex;
     flex-direction: column;
@@ -915,10 +915,10 @@ body {
 .modal-title {
     font-size: 3rem;
     font-weight: 900;
-    color: var(--neon-magenta);
+    color: var(--cp-yellow);
     text-shadow:
-        0 0 20px var(--neon-magenta),
-        0 0 40px var(--neon-magenta);
+        0 0 20px var(--cp-yellow),
+        0 0 40px var(--cp-yellow);
     margin-bottom: 1rem;
 }
 
