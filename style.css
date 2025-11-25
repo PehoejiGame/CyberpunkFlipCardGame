@@ -1019,7 +1019,7 @@ body {
    ========================================================================== */
 .main-footer {
     width: 768px;
-    padding: 1rem;
+    padding: 0.7rem;
     align-self: center;
     text-align: center;
     background: rgba(10, 10, 20, 0.8);
@@ -1031,7 +1031,7 @@ body {
 
 .main-footer p {
     margin: 0;
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-weight: 700;
     letter-spacing: 0.1rem;
 }
